@@ -1,0 +1,510 @@
+==============================================================================
+PRACTICAL 1  |  file: Practical_01.py  |  run: python Practical_01.py
+Aim: Implement a program to demonstrate AI components, categorization of intelligent systems, and applications in real-world case studies.
+==============================================================================
+# Simple reflex vacuum agent showing AI components, AI types and uses
+print("Name: Chavda Divyaraj S. | Enrollment: 240905040018 | Batch: ____\n")
+world = {"A": "Dirty", "B": "Dirty"}       # environment
+location = "A"                               # agent position
+
+def perceive():                              # perception
+    return location, world[location]
+
+def decide(percept):                         # reasoning (condition-action)
+    loc, status = percept
+    if status == "Dirty":
+        return "Suck"
+    return "Right" if loc == "A" else "Left"
+
+print("Agent run (Perceive -> Decide -> Act):")
+for step in range(1, 5):
+    percept = perceive()
+    action = decide(percept)
+    print(f"  Step {step}: percept={percept} action={action}")
+    if action == "Suck":                     # action changes environment
+        world[location] = "Clean"
+    else:
+        location = "B" if action == "Right" else "A"
+print("  Final world:", world)
+
+ai_types = [("Reactive machine", "Deep Blue chess computer"),
+            ("Limited memory", "Self-driving car"),
+            ("Theory of mind", "Social robots (research)"),
+            ("Self-aware", "Not yet built")]
+print("\nCategories of intelligent systems:")
+for kind, example in ai_types:
+    print(f"  {kind:<17}-> {example}")
+
+uses = {"Agriculture": "Crop disease detection",
+        "Education": "Personalised tutoring",
+        "Retail": "Demand forecasting"}
+print("\nReal-world case studies:")
+for area, use in uses.items():
+    print(f"  {area:<12}: {use}")
+
+
+==============================================================================
+PRACTICAL 2  |  file: Practical_02.py  |  run: python Practical_02.py
+Aim: Implement a search algorithm (BFS, DFS, or DLS) to solve a state- space problem, such as maze navigation or robot path finding.
+==============================================================================
+# Robot path finding on a grid using BFS, DFS and DLS
+from collections import deque
+print("Name: Chavda Divyaraj S. | Enrollment: 240905040018 | Batch: ____\n")
+grid = ["S.#..",
+        ".##.#",
+        "....G",
+        "#.#.."]
+R, C = len(grid), len(grid[0])
+start, goal = (0, 0), (2, 4)
+
+def moves(r, c):
+    for dr, dc in ((0, 1), (1, 0), (0, -1), (-1, 0)):
+        nr, nc = r + dr, c + dc
+        if 0 <= nr < R and 0 <= nc < C and grid[nr][nc] != "#":
+            yield nr, nc
+
+def bfs():
+    q, seen = deque([[start]]), {start}
+    while q:
+        path = q.popleft()
+        if path[-1] == goal:
+            return path
+        for n in moves(*path[-1]):
+            if n not in seen:
+                seen.add(n)
+                q.append(path + [n])
+
+def dfs(path, seen):
+    if path[-1] == goal:
+        return path
+    for n in moves(*path[-1]):
+        if n not in seen:
+            res = dfs(path + [n], seen | {n})
+            if res:
+                return res
+
+def dls(path, limit):
+    if path[-1] == goal:
+        return path
+    if limit == 0:
+        return None
+    for n in moves(*path[-1]):
+        if n not in path:
+            res = dls(path + [n], limit - 1)
+            if res:
+                return res
+
+for name, p in [("BFS", bfs()), ("DFS", dfs([start], {start})),
+                ("DLS (limit 4)", dls([start], 4)),
+                ("DLS (limit 6)", dls([start], 6))]:
+    print(f"{name:<14}:", p if p else "No path within limit",
+          f"({len(p) - 1} moves)" if p else "")
+
+
+==============================================================================
+PRACTICAL 3  |  file: Practical_03.py  |  run: python Practical_03.py
+Aim: Design and implement heuristic-based search strategies like Greedy search or A* for solving shortest-path problems.
+==============================================================================
+# Greedy Best-First and A* search on a weighted grid (Manhattan heuristic)
+import heapq
+print("Name: Chavda Divyaraj S. | Enrollment: 240905040018 | Batch: ____\n")
+cost = [[1, 1, 5, 1],
+        [1, 9, 5, 1],
+        [1, 1, 1, 1],
+        [5, 5, 1, 1]]
+start, goal = (0, 0), (3, 3)
+
+def h(p):
+    return abs(p[0] - goal[0]) + abs(p[1] - goal[1])
+
+def search(use_g):
+    heap = [(h(start), 0, start, [start])]
+    visited = set()
+    while heap:
+        _, g, node, path = heapq.heappop(heap)
+        if node == goal:
+            return path, g, len(visited)
+        if node in visited:
+            continue
+        visited.add(node)
+        r, c = node
+        for nr, nc in ((r + 1, c), (r - 1, c), (r, c + 1), (r, c - 1)):
+            if 0 <= nr < 4 and 0 <= nc < 4 and (nr, nc) not in visited:
+                ng = g + cost[nr][nc]
+                f = ng + h((nr, nc)) if use_g else h((nr, nc))
+                heapq.heappush(heap, (f, ng, (nr, nc), path + [(nr, nc)]))
+
+for name, flag in (("Greedy", False), ("A*", True)):
+    path, total, expanded = search(flag)
+    print(f"{name:<7} path : {path}")
+    print(f"{name:<7} cost : {total}, nodes expanded: {expanded}\n")
+
+
+==============================================================================
+PRACTICAL 4  |  file: Practical_04.py  |  run: python Practical_04.py
+Aim: Develop a constraint satisfaction solver for a problem like Sudoku or N-Queens.
+==============================================================================
+# Sudoku (4x4) as a Constraint Satisfaction Problem using backtracking
+print("Name: Chavda Divyaraj S. | Enrollment: 240905040018 | Batch: ____\n")
+board = [[1, 0, 0, 0],
+         [0, 0, 3, 0],
+         [0, 4, 0, 0],
+         [0, 0, 0, 2]]
+
+def valid(r, c, v):
+    if v in board[r] or v in [board[i][c] for i in range(4)]:
+        return False
+    br, bc = r // 2 * 2, c // 2 * 2                  # 2x2 box constraint
+    return all(board[i][j] != v for i in range(br, br + 2)
+               for j in range(bc, bc + 2))
+
+steps = 0
+def solve():
+    global steps
+    for r in range(4):
+        for c in range(4):
+            if board[r][c] == 0:                     # variable
+                for v in range(1, 5):                # domain
+                    if valid(r, c, v):
+                        board[r][c] = v
+                        steps += 1
+                        if solve():
+                            return True
+                        board[r][c] = 0              # backtrack
+                return False
+    return True
+
+print("Puzzle:")
+for row in board:
+    print("  ", " ".join(str(x) if x else "." for x in row))
+if solve():
+    print("\nSolved in", steps, "assignments:")
+    for row in board:
+        print("  ", " ".join(map(str, row)))
+
+
+==============================================================================
+PRACTICAL 5  |  file: Practical_05.py  |  run: python Practical_05.py
+Aim: Implement knowledge representation using semantic networks or frames and demonstrate reasoning with forward or backward chaining.
+==============================================================================
+# Frame-based knowledge with inheritance and forward chaining
+print("Name: Chavda Divyaraj S. | Enrollment: 240905040018 | Batch: ____\n")
+frames = {
+    "Vehicle": {"is_a": None, "wheels": 4, "uses": "road"},
+    "Car":     {"is_a": "Vehicle", "seats": 5},
+    "Bike":    {"is_a": "Vehicle", "wheels": 2, "seats": 2},
+    "EV":      {"is_a": "Car", "fuel": "electric"},
+}
+
+def get(frame, slot):                       # inherit slot from parent
+    while frame:
+        if slot in frames[frame]:
+            return frames[frame][slot]
+        frame = frames[frame]["is_a"]
+    return "unknown"
+
+for f in ("EV", "Bike"):
+    print(f"{f}: wheels={get(f, 'wheels')}, seats={get(f, 'seats')}, "
+          f"uses={get(f, 'uses')}, fuel={get(f, 'fuel')}")
+
+rules = [({"electric"}, "zero_tailpipe_emission"),
+         ({"zero_tailpipe_emission"}, "eco_friendly"),
+         ({"eco_friendly", "4_wheels"}, "green_family_car")]
+facts = {"electric", "4_wheels"}
+print("\nForward chaining from", sorted(facts))
+added = True
+while added:
+    added = False
+    for cond, result in rules:
+        if cond <= facts and result not in facts:
+            facts.add(result)
+            added = True
+            print(f"  {sorted(cond)} => {result}")
+print("Final facts:", sorted(facts))
+
+
+==============================================================================
+PRACTICAL 6  |  file: Practical_06.py  |  run: python Practical_06.py
+Aim: Create a system using propositional and predicate logic to represent and infer knowledge in a given domain.
+==============================================================================
+# Propositional and predicate logic for a college domain
+from itertools import product
+print("Name: Chavda Divyaraj S. | Enrollment: 240905040018 | Batch: ____\n")
+# Propositional: KB = (Study -> Pass), (Pass -> Degree), Study
+# Query: does KB entail Degree?  (check every model)
+imp = lambda a, b: (not a) or b
+entails = True
+print("Study Pass Degree | KB    Degree")
+for s, p, d in product([True, False], repeat=3):
+    kb = imp(s, p) and imp(p, d) and s
+    print(f"{s!s:<5} {p!s:<5} {d!s:<6} | {kb!s:<5} {d}")
+    if kb and not d:
+        entails = False
+print("KB |= Degree :", entails)
+
+# Predicate logic: Prereq(x, y), Passed(s, x)
+# Rule: forall s,y  CanTake(s, y) <- forall x (Prereq(x, y) -> Passed(s, x))
+prereq = {("Python", "AI"), ("Maths", "AI"), ("DBMS", "DataMining")}
+passed = {("Riya", "Python"), ("Riya", "Maths"), ("Aman", "Python")}
+def can_take(s, course):
+    return all((s, x) in passed for x, y in prereq if y == course)
+print()
+for s in ("Riya", "Aman"):
+    print(f"CanTake({s}, AI) :", can_take(s, "AI"))
+print("Exists s Passed(s, Maths):",
+      any(c == "Maths" for _, c in passed))
+
+
+==============================================================================
+PRACTICAL 7  |  file: Practical_07.py  |  run: python Practical_07.py
+Aim: Build an AI to play a simple game like Tic-Tac-Toe using the Minimax algorithm with Alpha-beta pruning optimization.
+==============================================================================
+# Tic-Tac-Toe AI: Minimax vs Minimax with Alpha-Beta pruning
+import math
+print("Name: Chavda Divyaraj S. | Enrollment: 240905040018 | Batch: ____\n")
+LINES = [(0,1,2),(3,4,5),(6,7,8),(0,3,6),(1,4,7),(2,5,8),(0,4,8),(2,4,6)]
+count = 0
+
+def winner(b):
+    for a, c, d in LINES:
+        if b[a] != " " and b[a] == b[c] == b[d]:
+            return b[a]
+    return None
+
+def score(b, depth, alpha, beta, maxi, prune):
+    global count
+    count += 1
+    w = winner(b)
+    if w or " " not in b:
+        return 10 - depth if w == "O" else depth - 10 if w else 0
+    best = -math.inf if maxi else math.inf
+    for i in [k for k in range(9) if b[k] == " "]:
+        b[i] = "O" if maxi else "X"
+        v = score(b, depth + 1, alpha, beta, not maxi, prune)
+        b[i] = " "
+        if maxi:
+            best, alpha = max(best, v), max(alpha, v)
+        else:
+            best, beta = min(best, v), min(beta, v)
+        if prune and beta <= alpha:
+            break
+    return best
+
+def best_move(b, prune):
+    moves = [i for i in range(9) if b[i] == " "]
+    vals = []
+    for i in moves:
+        b[i] = "O"
+        vals.append(score(b, 1, -math.inf, math.inf, False, prune))
+        b[i] = " "
+    return moves[vals.index(max(vals))]
+
+board = list("X   O   X")                  # X to the corners, O to play
+print("Board:", board)
+for prune in (False, True):
+    count = 0
+    m = best_move(board, prune)
+    tag = "Alpha-Beta" if prune else "Minimax"
+    print(f"{tag:<10}: best move = cell {m}, nodes searched = {count}")
+
+
+==============================================================================
+PRACTICAL 8  |  file: Practical_08.py  |  run: python Practical_08.py
+Aim: Implement a planning algorithm (e.g., goal stack or hierarchical planning) for solving the blocks-world problem or similar planning problems.
+==============================================================================
+# Blocks world planning with STRIPS operators (goal stack style)
+print("Name: Chavda Divyaraj S. | Enrollment: 240905040018 | Batch: ____\n")
+state = {"on(A,B)", "on(B,table)", "on(C,table)", "clear(A)", "clear(C)"}
+goal = ["on(B,C)", "on(A,B)"]                     # build A on B on C
+
+def blocks():
+    return ["A", "B", "C"]
+
+def move(x, frm, to):
+    pre = {f"on({x},{frm})", f"clear({x})"}
+    if to != "table":
+        pre.add(f"clear({to})")
+    add, dele = {f"on({x},{to})"}, {f"on({x},{frm})"}
+    if frm != "table":
+        add.add(f"clear({frm})")
+    if to != "table":
+        dele.add(f"clear({to})")
+    return pre, add, dele
+
+def achieve(fact, plan):
+    global state
+    if fact in state:
+        return
+    x, to = fact[3:-1].split(",")
+    frm = next(f[3:-1].split(",")[1] for f in state
+               if f.startswith(f"on({x},"))
+    # sub-goals: clear x and clear destination (stack them first)
+    for y in blocks():
+        if f"on({y},{x})" in state:
+            achieve(f"on({y},table)", plan)
+        if to != "table" and f"on({y},{to})" in state:
+            achieve(f"on({y},table)", plan)
+    pre, add, dele = move(x, frm, to)
+    if pre <= state:
+        state = (state - dele) | add
+        plan.append(f"MOVE({x}, {frm} -> {to})")
+
+plan = []
+for g in goal:
+    achieve(g, plan)
+print("Plan:")
+for i, step in enumerate(plan, 1):
+    print(f"  {i}. {step}")
+print("Goal reached:", all(g in state for g in goal))
+
+
+==============================================================================
+PRACTICAL 9  |  file: Practical_09.py  |  run: python Practical_09.py
+Aim: Design and develop an expert system prototype for a domain like medical diagnosis or fault detection using a suitable knowledge representation method.
+==============================================================================
+# Expert system prototype: plant disease diagnosis with certainty factors
+print("Name: Chavda Divyaraj S. | Enrollment: 240905040018 | Batch: ____\n")
+rules = [
+    ({"yellow_leaves", "wet_soil"}, "Root rot", 0.8,
+     "Reduce watering, improve drainage"),
+    ({"white_powder"}, "Powdery mildew", 0.9, "Spray neem oil"),
+    ({"brown_spots", "yellow_leaves"}, "Leaf blight", 0.7,
+     "Remove infected leaves, apply fungicide"),
+    ({"holes_in_leaves"}, "Pest attack", 0.6, "Use organic pesticide"),
+]
+
+def diagnose(symptoms):
+    results = []
+    for cond, disease, cf, advice in rules:
+        matched = len(cond & symptoms) / len(cond)
+        if matched == 1:
+            results.append((cf, disease, advice))
+    return sorted(results, reverse=True)
+
+cases = [{"yellow_leaves", "wet_soil"},
+         {"brown_spots", "yellow_leaves", "holes_in_leaves"},
+         {"dry_soil"}]
+for s in cases:
+    print("Symptoms :", sorted(s))
+    found = diagnose(s)
+    if not found:
+        print("  Result : No rule matched - consult an expert")
+    for cf, disease, advice in found:
+        print(f"  Result : {disease} (CF {cf}) -> {advice}")
+    print()
+
+
+==============================================================================
+PRACTICAL 10  |  file: Practical_10.pl  |  run: swipl -q Practical_10.pl
+Aim: Write Prolog programs using facts, rules, and queries to perform logical reasoning tasks.
+==============================================================================
+% Facts, rules and queries: student-course database
+:- initialization(main).
+
+student(riya).  student(aman).  student(neha).
+enrolled(riya, ai).   enrolled(riya, cn).
+enrolled(aman, ai).   enrolled(neha, dbms).
+marks(riya, ai, 82).  marks(aman, ai, 35).  marks(neha, dbms, 67).
+teaches(prof_shah, ai).  teaches(prof_mehta, dbms).
+
+passed(S, C)    :- marks(S, C, M), M >= 40.
+classmate(X, Y) :- enrolled(X, C), enrolled(Y, C), X \= Y.
+taught_by(S, T) :- enrolled(S, C), teaches(T, C).
+grade(S, C, G)  :- marks(S, C, M),
+                   ( M >= 80 -> G = 'A' ; M >= 60 -> G = 'B'
+                   ; M >= 40 -> G = 'C' ; G = 'F' ).
+
+q(Label, Goal) :-
+    format("?- ~w~n", [Label]),
+    ( findall(Goal, Goal, L), L \= [] ->
+        forall(member(Goal, L), format("   ~w~n", [Goal]))
+    ;   writeln('   false.') ).
+
+main :-
+    writeln('Name: Chavda Divyaraj S. | Enrollment: 240905040018 | Batch: ____'),
+    nl,
+    q('passed(S, ai)', passed(_, ai)),
+    q('classmate(riya, Y)', classmate(riya, _)),
+    q('taught_by(neha, T)', taught_by(neha, _)),
+    q('grade(S, C, G)', grade(_, _, _)),
+    q('passed(aman, ai)', passed(aman, ai)).
+
+
+==============================================================================
+PRACTICAL 11  |  file: Practical_11.pl  |  run: swipl -q Practical_11.pl
+Aim: Implement recursion and backtracking in Prolog to solve a problem such as finding paths in a graph.
+==============================================================================
+% Recursion and backtracking: routes between cities, Tower of Hanoi
+:- initialization(main).
+
+road(ahmedabad, vadodara, 110).  road(vadodara, surat, 150).
+road(ahmedabad, rajkot, 215).    road(rajkot, bhavnagar, 175).
+road(ahmedabad, bhavnagar, 200). road(bhavnagar, surat, 290).
+link(X, Y, D) :- road(X, Y, D) ; road(Y, X, D).
+
+% route/4 explores paths by recursion, backtracking on dead ends
+route(X, X, _, [X], 0).
+route(X, Y, Visited, [X|P], D) :-
+    X \= Y, link(X, Z, D1), \+ member(Z, Visited),
+    route(Z, Y, [Z|Visited], P, D2), D is D1 + D2.
+
+hanoi(0, _, _, _) :- !.
+hanoi(N, From, To, Via) :-
+    N1 is N - 1,
+    hanoi(N1, From, Via, To),
+    format("   Move disk ~w: ~w -> ~w~n", [N, From, To]),
+    hanoi(N1, Via, To, From).
+
+main :-
+    writeln('Name: Chavda Divyaraj S. | Enrollment: 240905040018 | Batch: ____'),
+    nl,
+    writeln('All routes ahmedabad -> surat:'),
+    forall(route(ahmedabad, surat, [ahmedabad], P, D),
+           format("   ~w  (~w km)~n", [P, D])),
+    findall(D-P, route(ahmedabad, surat, [ahmedabad], P, D), L),
+    keysort(L, [Best-BP|_]),
+    format("Shortest: ~w (~w km)~n~n", [BP, Best]),
+    writeln('Tower of Hanoi (3 disks):'),
+    hanoi(3, left, right, middle).
+
+
+==============================================================================
+PRACTICAL 12  |  file: Practical_12.pl  |  run: swipl -q Practical_12.pl
+Aim: Combine Prolog programming techniques to create a small expert system or logic-based problem-solving program.
+==============================================================================
+% Small expert system: animal identification (rule-based reasoning)
+:- initialization(main).
+:- dynamic has/1.
+
+animal(cheetah) :- mammal, carnivore, has(tawny_color), has(dark_spots).
+animal(tiger)   :- mammal, carnivore, has(tawny_color), has(black_stripes).
+animal(zebra)   :- mammal, has(hooves), has(black_stripes).
+animal(penguin) :- bird, \+ has(flies), has(swims).
+animal(eagle)   :- bird, has(flies), has(sharp_claws).
+
+mammal    :- has(hair) ; has(gives_milk).
+bird      :- has(feathers).
+carnivore :- has(eats_meat) ; (has(sharp_teeth), has(sharp_claws)).
+
+identify(Features) :-
+    retractall(has(_)),
+    forall(member(F, Features), assertz(has(F))),
+    format("Features: ~w~n", [Features]),
+    (   animal(A)
+    ->  format("   Animal is: ~w~n", [A]),
+        explain(A)
+    ;   writeln('   Animal is: unknown')
+    ), nl.
+
+explain(A) :-
+    clause(animal(A), Body),
+    format("   Because: ~w~n", [Body]).
+
+main :-
+    writeln('Name: Chavda Divyaraj S. | Enrollment: 240905040018 | Batch: ____'),
+    nl,
+    identify([hair, eats_meat, tawny_color, black_stripes]),
+    identify([feathers, swims]),
+    identify([gives_milk, hooves, black_stripes]),
+    identify([feathers, scales]).
+

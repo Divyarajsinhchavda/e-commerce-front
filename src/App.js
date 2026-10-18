@@ -15,6 +15,7 @@ import { AdminProductsPage } from './pages/AdminProductsPage';
 import { AdminBrandsPage } from './pages/AdminBrandsPage';
 import { AdminCategoriesPage } from './pages/AdminCategoriesPage';
 import { NotFoundPage } from './pages/NotFoundPage';
+import { VaultPage } from './pages/VaultPage';
 
 
 function App() {
@@ -41,6 +42,7 @@ function App() {
         <Route path='/terms-of-use' element={<TermsOfUsePage/>} />
         <Route path='/faq' element={<FaqPage/>} />
         <Route path='/contact' element={<ContactPage/>} />
+        <Route path='/vault' element={<VaultPage/>} />
 
         {
           loggedInUser?.isAdmin?(

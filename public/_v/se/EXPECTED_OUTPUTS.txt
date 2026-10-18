@@ -1,0 +1,121 @@
+==============================================================================
+PRACTICAL 9 | folder: Practical_09_Coverage_Complexity | run: python practical9_coverage.py
+==============================================================================
+CYCLOMATIC COMPLEXITY: P = 3, V(G) = P + 1 = 4
+All 4 test cases
+TC   Input              Expected            Actual              Result
+TC1  (90, 70, True)     Certificate Issued  Certificate Issued  PASS
+TC2  (90, 70, False)    Submit Assignments  Submit Assignments  PASS
+TC3  (90, 30, True)     Retake Quiz         Retake Quiz         PASS
+TC4  (50, 70, True)     Course Incomplete   Course Incomplete   PASS
+  Statement coverage  8/8 = 100.0%
+  Branch coverage     6/6 = 100.0%
+  Path coverage       4/4 = 100.0%
+Only TC1 and TC2
+  Statement coverage  6/8 = 75.0%
+  Branch coverage     4/6 = 66.7%
+  Path coverage       2/4 = 50.0%
+
+==============================================================================
+PRACTICAL 10 | folder: Practical_10_Test_Suite | run: python test_suite.py
+==============================================================================
+EQUIVALENCE PARTITIONING
+ID      Description                 Expected         Actual           Result
+EP-01   valid price, valid coupon   1800.0           1800.0           PASS
+EP-02   valid price, no coupon      2000.0           2000.0           PASS
+EP-03   price below range           ValueError       ValueError       PASS
+EP-04   price above range           ValueError       ValueError       PASS
+EP-05   coupon below range          ValueError       ValueError       PASS
+EP-06   coupon above range          ValueError       ValueError       PASS
+BOUNDARY VALUE ANALYSIS
+ID      Description                 Expected         Actual           Result
+BVA-01  price 0 (below min)         ValueError       ValueError       PASS
+BVA-02  price 1 (min)               1.0              1.0              PASS
+BVA-03  price 2 (above min)         2.0              2.0              PASS
+BVA-04  price 49999 (below max)     49999.0          49999.0          PASS
+BVA-05  price 50000 (max)           50000.0          50000.0          PASS
+BVA-06  price 50001 (above max)     ValueError       ValueError       PASS
+BVA-07  coupon -1 (below min)       ValueError       ValueError       PASS
+BVA-08  coupon 0 (min)              1000.0           1000.0           PASS
+BVA-09  coupon 1 (above min)        990.0            990.0            PASS
+BVA-10  coupon 49 (below max)       510.0            510.0            PASS
+BVA-11  coupon 50 (max)             500.0            500.0            PASS
+BVA-12  coupon 51 (above max)       ValueError       ValueError       PASS
+DECISION TABLE TESTING
+ID      Description                 Expected         Actual           Result
+DT-01   R1 not logged in            Login Required   Login Required   PASS
+DT-02   R1 not logged in, full      Login Required   Login Required   PASS
+DT-03   R2 payment pending          Payment Pending  Payment Pending  PASS
+DT-04   R2 payment pending, full    Payment Pending  Payment Pending  PASS
+DT-05   R3 paid, seats available    Enrolled         Enrolled         PASS
+DT-06   R4 paid, no seats           Waitlisted       Waitlisted       PASS
+ERROR GUESSING
+ID      Description                 Expected         Actual           Result
+EG-01   price as string             TypeError        TypeError        PASS
+EG-02   price is None               TypeError        TypeError        PASS
+EG-03   price is True               TypeError        TypeError        PASS
+EG-04   coupon as string            TypeError        TypeError        PASS
+EG-05   decimal price and coupon    664.99           664.99           PASS
+EG-06   negative seats              ValueError       ValueError       PASS
+EG-07   seats as string             TypeError        TypeError        PASS
+EG-08   seats as float              TypeError        TypeError        PASS
+Technique                      Total  Passed  Failed
+EQUIVALENCE PARTITIONING           6       6       0
+BOUNDARY VALUE ANALYSIS           12      12       0
+DECISION TABLE TESTING             6       6       0
+ERROR GUESSING                     8       8       0
+TOTAL                             32      32       0
+RESULT: ALL TESTS PASSED
+
+==============================================================================
+PRACTICAL 11 | folder: Practical_11_OAuth_Login_Tests | run: python test_auth.py
+==============================================================================
+LEARNSPHERE AUTH MODULE - TEST REPORT
+SIGN UP
+  REG-01 Valid details are accepted                             PASS
+  REG-02 Duplicate e-mail is rejected                           PASS
+  REG-03 Duplicate e-mail in capital letters is rejected        PASS
+  REG-04 E-mail without @ is rejected                           PASS
+  REG-05 Name with digits is rejected                           PASS
+  REG-06 Password of 7 characters is rejected                   PASS
+  REG-07 Password of exactly 8 characters is accepted           PASS
+  REG-08 Password without special character is rejected         PASS
+  REG-09 Confirm password not matching is rejected              PASS
+  REG-10 Password is stored as hash, not plain text             PASS
+E-MAIL OTP
+  OTP-01 Correct OTP verifies the account                       PASS
+  OTP-02 Wrong OTP is rejected                                  PASS
+  OTP-03 OTP still works at 299 seconds                         PASS
+  OTP-04 OTP expires at 300 seconds                             PASS
+  OTP-05 Blocked after 3 wrong attempts                         PASS
+  OTP-06 Resent OTP works after the old one expired             PASS
+LOGIN
+  LOG-01 Login with correct e-mail and password                 PASS
+  LOG-02 Wrong password is rejected                             PASS
+  LOG-03 Unknown e-mail gives the same error message            PASS
+  LOG-04 E-mail is not case sensitive                           PASS
+  LOG-05 Login without e-mail verification is rejected          PASS
+  LOG-06 Account locks after 5 wrong passwords                  PASS
+  LOG-07 4 wrong passwords then correct one works               PASS
+  LOG-08 Locked account opens again after 15 minutes            PASS
+SESSION
+  SES-01 Fake session token is rejected                         PASS
+  SES-02 Session is valid at 1799 seconds                       PASS
+  SES-03 Session expires at 1800 seconds                        PASS
+  SES-04 Token cannot be used after logout                      PASS
+GOOGLE OAUTH
+  OA-01 Start gives a new state value                           PASS
+  OA-02 First Google login creates a verified account           PASS
+  OA-03 Existing user is not duplicated                         PASS
+  OA-04 Wrong state is rejected (CSRF check)                    PASS
+  OA-05 Same state cannot be used twice                         PASS
+  OA-06 Authorization code works only once                      PASS
+  OA-07 Authorization code expires after 5 minutes              PASS
+Feature                    Tests  Passed  Failed
+SIGN UP                       10      10       0
+E-MAIL OTP                     6       6       0
+LOGIN                          8       8       0
+SESSION                        4       4       0
+GOOGLE OAUTH                   7       7       0
+TOTAL                         35      35       0
+RESULT: ALL TESTS PASSED

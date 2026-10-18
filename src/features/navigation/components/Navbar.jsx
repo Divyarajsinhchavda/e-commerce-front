@@ -43,6 +43,25 @@ export const Navbar=({isProductList=false})=> {
     setAnchorElUser(null);
   };
 
+  // 5 quick clicks on the logo open the hidden page; a normal click still goes home
+  const logoClicks=React.useRef({count:0,timer:null})
+  const handleLogoClick=(event)=>{
+    event.preventDefault()
+    const state=logoClicks.current
+    clearTimeout(state.timer)
+    state.count+=1
+    if(state.count>=5){
+      state.count=0
+      navigate("/vault")
+      return
+    }
+    state.timer=setTimeout(()=>{
+      const clicks=state.count
+      state.count=0
+      if(clicks===1) navigate("/")
+    },600)
+  }
+
   const handleToggleFilters=()=>{
     dispatch(toggleFilters())
   }
@@ -71,7 +90,7 @@ export const Navbar=({isProductList=false})=> {
     <AppBar position="sticky" sx={{backgroundColor:"white",boxShadow:"none",color:"text.primary"}}>
         <Toolbar sx={{p:1,height:"4rem",display:"flex",justifyContent:"space-around"}}>
 
-          <Typography variant="h6" noWrap component="a" href="/" sx={{ mr: 2, display: { xs: 'none', md: 'flex' },fontWeight: 700, letterSpacing: '.3rem', color: 'inherit', textDecoration: 'none', }}>
+          <Typography variant="h6" noWrap component="a" href="/" onClick={handleLogoClick} sx={{ mr: 2, display: { xs: 'none', md: 'flex' },fontWeight: 700, letterSpacing: '.3rem', color: 'inherit', textDecoration: 'none', }}>
             evlonMart
           </Typography>
 
