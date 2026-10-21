@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<!-- Practical 13: small page to test the API without Postman -->
+<html>
+<body>
+    <h3>Test REST API</h3>
+    <button onclick="getAll()">GET all</button>
+    <button onclick="addOne()">POST (add Eraser)</button>
+    <button onclick="updateOne()">PUT (update id 1)</button>
+    <button onclick="deleteOne()">DELETE (id 1)</button>
+    <pre id="out"></pre>
+
+    <script>
+        var url = "api.php";
+
+        function show(res) {
+            res.json().then(function (d) {
+                document.getElementById("out").innerText = JSON.stringify(d, null, 2);
+            });
+        }
+
+        function getAll() { fetch(url).then(show); }
+
+        function addOne() {
+            fetch(url, {
+                method: "POST",
+                body: JSON.stringify({ name: "Eraser", price: 5 })
+            }).then(show);
+        }
+
+        function updateOne() {
+            fetch(url + "?id=1", {
+                method: "PUT",
+                body: JSON.stringify({ name: "Gel Pen", price: 15 })
+            }).then(show);
+        }
+
+        function deleteOne() {
+            fetch(url + "?id=1", { method: "DELETE" }).then(show);
+        }
+    </script>
+</body>
+</html>

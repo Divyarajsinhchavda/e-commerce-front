@@ -5,6 +5,7 @@ import { vaultFiles } from './vaultFiles'
 const groups = [
   { key: 'ai', title: 'AI Practicals (BETCE15314)' },
   { key: 'se', title: 'SE Practicals (BETCE15322)' },
+  { key: 'awd', title: 'AWD Practicals (BETCE15316)' },
 ]
 
 const formatSize = (bytes) => bytes > 1024 * 1024 ? `${(bytes / 1024 / 1024).toFixed(1)} MB` : `${Math.max(1, Math.round(bytes / 1024))} KB`

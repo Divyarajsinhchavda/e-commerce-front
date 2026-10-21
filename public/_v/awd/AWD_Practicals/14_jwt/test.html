@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<!-- Practical 14: small page to test login + secured endpoint -->
+<html>
+<body>
+    <h3>JWT Test</h3>
+    <button onclick="login()">1. Login</button>
+    <button onclick="callSecure()">2. Call secure.php with token</button>
+    <pre id="out"></pre>
+
+    <script>
+        var token = "";
+
+        function show(d) {
+            document.getElementById("out").innerText = JSON.stringify(d, null, 2);
+        }
+
+        function login() {
+            fetch("login.php", {
+                method: "POST",
+                body: JSON.stringify({ username: "admin", password: "1234" })
+            })
+            .then(function (r) { return r.json(); })
+            .then(function (d) { token = d.token; show(d); });
+        }
+
+        function callSecure() {
+            fetch("secure.php", {
+                headers: { "Authorization": "Bearer " + token }
+            })
+            .then(function (r) { return r.json(); })
+            .then(show);
+        }
+    </script>
+</body>
+</html>

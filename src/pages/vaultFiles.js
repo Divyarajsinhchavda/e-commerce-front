@@ -211,5 +211,211 @@ export const vaultFiles = {
       "path": "SE_Practical_File_Divyaraj.pdf",
       "size": 2837028
     }
+  ],
+  "awd": [
+    {
+      "path": "AWD_Practicals_PNG/01_class_object_php.png",
+      "size": 116101
+    },
+    {
+      "path": "AWD_Practicals_PNG/02_inheritance_abstract_php.png",
+      "size": 192675
+    },
+    {
+      "path": "AWD_Practicals_PNG/03_try_catch_php.png",
+      "size": 151233
+    },
+    {
+      "path": "AWD_Practicals_PNG/04_pdo_select_php.png",
+      "size": 74549
+    },
+    {
+      "path": "AWD_Practicals_PNG/05_prepared_statement_php.png",
+      "size": 105619
+    },
+    {
+      "path": "AWD_Practicals_PNG/06_pdo_transaction_php.png",
+      "size": 122133
+    },
+    {
+      "path": "AWD_Practicals_PNG/07_session_login__dashboard_php.png",
+      "size": 47956
+    },
+    {
+      "path": "AWD_Practicals_PNG/07_session_login__login_php.png",
+      "size": 119066
+    },
+    {
+      "path": "AWD_Practicals_PNG/07_session_login__logout_php.png",
+      "size": 14813
+    },
+    {
+      "path": "AWD_Practicals_PNG/08_form_validation_php.png",
+      "size": 175302
+    },
+    {
+      "path": "AWD_Practicals_PNG/09_file_upload_php.png",
+      "size": 187767
+    },
+    {
+      "path": "AWD_Practicals_PNG/10_captcha_php.png",
+      "size": 159793
+    },
+    {
+      "path": "AWD_Practicals_PNG/11_ajax__get_users_php.png",
+      "size": 30717
+    },
+    {
+      "path": "AWD_Practicals_PNG/11_ajax__index_html.png",
+      "size": 32265
+    },
+    {
+      "path": "AWD_Practicals_PNG/11_ajax__script_js.png",
+      "size": 71665
+    },
+    {
+      "path": "AWD_Practicals_PNG/12_json_php.png",
+      "size": 97725
+    },
+    {
+      "path": "AWD_Practicals_PNG/13_restful_api__api_php.png",
+      "size": 202054
+    },
+    {
+      "path": "AWD_Practicals_PNG/13_restful_api__test_html.png",
+      "size": 126610
+    },
+    {
+      "path": "AWD_Practicals_PNG/14_jwt__jwt_helper_php.png",
+      "size": 160250
+    },
+    {
+      "path": "AWD_Practicals_PNG/14_jwt__login_php.png",
+      "size": 89898
+    },
+    {
+      "path": "AWD_Practicals_PNG/14_jwt__secure_php.png",
+      "size": 88484
+    },
+    {
+      "path": "AWD_Practicals_PNG/14_jwt__test_html.png",
+      "size": 102053
+    },
+    {
+      "path": "AWD_Practicals_PNG/15_third_party_api_php.png",
+      "size": 107749
+    },
+    {
+      "path": "AWD_Practicals_PNG/database_sql.png",
+      "size": 94863
+    },
+    {
+      "path": "AWD_Practicals_PNG/db_php.png",
+      "size": 57941
+    },
+    {
+      "path": "AWD_Practicals/01_class_object.php",
+      "size": 863
+    },
+    {
+      "path": "AWD_Practicals/02_inheritance_abstract.php",
+      "size": 1411
+    },
+    {
+      "path": "AWD_Practicals/03_try_catch.php",
+      "size": 1126
+    },
+    {
+      "path": "AWD_Practicals/04_pdo_select.php",
+      "size": 649
+    },
+    {
+      "path": "AWD_Practicals/05_prepared_statement.php",
+      "size": 971
+    },
+    {
+      "path": "AWD_Practicals/06_pdo_transaction.php",
+      "size": 1042
+    },
+    {
+      "path": "AWD_Practicals/07_session_login/dashboard.php",
+      "size": 354
+    },
+    {
+      "path": "AWD_Practicals/07_session_login/login.php",
+      "size": 1038
+    },
+    {
+      "path": "AWD_Practicals/07_session_login/logout.php",
+      "size": 137
+    },
+    {
+      "path": "AWD_Practicals/08_form_validation.php",
+      "size": 1522
+    },
+    {
+      "path": "AWD_Practicals/09_file_upload.php",
+      "size": 1720
+    },
+    {
+      "path": "AWD_Practicals/10_captcha.php",
+      "size": 1433
+    },
+    {
+      "path": "AWD_Practicals/11_ajax/get_users.php",
+      "size": 243
+    },
+    {
+      "path": "AWD_Practicals/11_ajax/index.html",
+      "size": 242
+    },
+    {
+      "path": "AWD_Practicals/11_ajax/script.js",
+      "size": 815
+    },
+    {
+      "path": "AWD_Practicals/12_json.php",
+      "size": 802
+    },
+    {
+      "path": "AWD_Practicals/13_restful_api/api.php",
+      "size": 1862
+    },
+    {
+      "path": "AWD_Practicals/13_restful_api/test.html",
+      "size": 1188
+    },
+    {
+      "path": "AWD_Practicals/14_jwt/jwt_helper.php",
+      "size": 1230
+    },
+    {
+      "path": "AWD_Practicals/14_jwt/login.php",
+      "size": 776
+    },
+    {
+      "path": "AWD_Practicals/14_jwt/secure.php",
+      "size": 776
+    },
+    {
+      "path": "AWD_Practicals/14_jwt/test.html",
+      "size": 1001
+    },
+    {
+      "path": "AWD_Practicals/15_third_party_api.php",
+      "size": 924
+    },
+    {
+      "path": "AWD_Practicals/database.sql",
+      "size": 839
+    },
+    {
+      "path": "AWD_Practicals/db.php",
+      "size": 472
+    },
+    {
+      "path": "AWD_Practicals/README.txt",
+      "size": 1871
+    }
   ]
 };
