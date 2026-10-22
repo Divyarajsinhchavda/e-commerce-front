@@ -1,193 +1,57 @@
 // generated list of files under public/_v
 export const vaultFiles = {
-  "rmwd": [
+  "cn": [
     {
-      "path": "Practicals_Figma_SVG/All_Practicals_for_Figma.svg",
-      "size": 169037
+      "path": "P1_Packet_Tracer/1_Bus_Topology.pkt",
+      "size": 10660
     },
     {
-      "path": "Practicals_Figma_SVG/Practical_01.svg",
-      "size": 5740
+      "path": "P1_Packet_Tracer/2_Star_Topology.pkt",
+      "size": 9156
     },
     {
-      "path": "Practicals_Figma_SVG/Practical_02.svg",
-      "size": 7652
+      "path": "P1_Packet_Tracer/3_Ring_Topology.pkt",
+      "size": 10788
     },
     {
-      "path": "Practicals_Figma_SVG/Practical_03.svg",
-      "size": 5423
+      "path": "P1_Packet_Tracer/4_Tree_Topology.pkt",
+      "size": 10048
     },
     {
-      "path": "Practicals_Figma_SVG/Practical_04.svg",
-      "size": 6357
+      "path": "P1_Packet_Tracer/5_Mesh_Topology.pkt",
+      "size": 10917
     },
     {
-      "path": "Practicals_Figma_SVG/Practical_05.svg",
-      "size": 6870
+      "path": "P1_Packet_Tracer/6_Hybrid_Topology.pkt",
+      "size": 12986
     },
     {
-      "path": "Practicals_Figma_SVG/Practical_06.svg",
-      "size": 7203
+      "path": "P10_Packet_Tracer/10_HTTP_DNS_SMTP.pkt",
+      "size": 23658
     },
     {
-      "path": "Practicals_Figma_SVG/Practical_07.svg",
-      "size": 9013
+      "path": "P6_Packet_Tracer/6_Network_Commands.pkt",
+      "size": 23606
     },
     {
-      "path": "Practicals_Figma_SVG/Practical_08.svg",
-      "size": 5428
+      "path": "README.txt",
+      "size": 2206
     },
     {
-      "path": "Practicals_Figma_SVG/Practical_09.svg",
-      "size": 6500
+      "path": "Wireshark_P8_P9_P10/P10_DNS.pcap",
+      "size": 744
     },
     {
-      "path": "Practicals_Figma_SVG/Practical_10.svg",
-      "size": 7692
+      "path": "Wireshark_P8_P9_P10/P10_HTTP.pcap",
+      "size": 1577
     },
     {
-      "path": "Practicals_Figma_SVG/Practical_11.svg",
-      "size": 8483
+      "path": "Wireshark_P8_P9_P10/P10_SMTP.pcap",
+      "size": 3079
     },
     {
-      "path": "Practicals_Figma_SVG/Practical_12.svg",
-      "size": 8298
-    },
-    {
-      "path": "Practicals_Figma_SVG/Practical_13.svg",
-      "size": 11165
-    },
-    {
-      "path": "Practicals_Figma_SVG/Practical_14.svg",
-      "size": 7863
-    },
-    {
-      "path": "Practicals_Figma_SVG/Practical_15.svg",
-      "size": 6987
-    },
-    {
-      "path": "Practicals_Figma_SVG/Practical_16.svg",
-      "size": 5747
-    },
-    {
-      "path": "Practicals_Figma_SVG/Practical_17.svg",
-      "size": 7093
-    },
-    {
-      "path": "Practicals_Figma_SVG/Practical_18.svg",
-      "size": 6649
-    },
-    {
-      "path": "Practicals_Figma_SVG/Practical_19.svg",
-      "size": 9274
-    },
-    {
-      "path": "Practicals_Figma_SVG/Practical_20.svg",
-      "size": 7149
-    },
-    {
-      "path": "Practicals_Figma_SVG/Practical_21.svg",
-      "size": 7558
-    },
-    {
-      "path": "Practicals_Figma_SVG/Practical_22.svg",
-      "size": 9474
-    },
-    {
-      "path": "Practicals_Figma_SVG/Practical_23.svg",
-      "size": 6207
-    },
-    {
-      "path": "Practicals_PNG/Practical_01.png",
-      "size": 99994
-    },
-    {
-      "path": "Practicals_PNG/Practical_02.png",
-      "size": 97812
-    },
-    {
-      "path": "Practicals_PNG/Practical_03.png",
-      "size": 79305
-    },
-    {
-      "path": "Practicals_PNG/Practical_04.png",
-      "size": 75577
-    },
-    {
-      "path": "Practicals_PNG/Practical_05.png",
-      "size": 101668
-    },
-    {
-      "path": "Practicals_PNG/Practical_06.png",
-      "size": 132423
-    },
-    {
-      "path": "Practicals_PNG/Practical_07.png",
-      "size": 101907
-    },
-    {
-      "path": "Practicals_PNG/Practical_08.png",
-      "size": 86261
-    },
-    {
-      "path": "Practicals_PNG/Practical_09.png",
-      "size": 94947
-    },
-    {
-      "path": "Practicals_PNG/Practical_10.png",
-      "size": 114204
-    },
-    {
-      "path": "Practicals_PNG/Practical_11.png",
-      "size": 94280
-    },
-    {
-      "path": "Practicals_PNG/Practical_12.png",
-      "size": 116361
-    },
-    {
-      "path": "Practicals_PNG/Practical_13.png",
-      "size": 126654
-    },
-    {
-      "path": "Practicals_PNG/Practical_14.png",
-      "size": 129038
-    },
-    {
-      "path": "Practicals_PNG/Practical_15.png",
-      "size": 120427
-    },
-    {
-      "path": "Practicals_PNG/Practical_16.png",
-      "size": 77722
-    },
-    {
-      "path": "Practicals_PNG/Practical_17.png",
-      "size": 106284
-    },
-    {
-      "path": "Practicals_PNG/Practical_18.png",
-      "size": 95394
-    },
-    {
-      "path": "Practicals_PNG/Practical_19.png",
-      "size": 163243
-    },
-    {
-      "path": "Practicals_PNG/Practical_20.png",
-      "size": 122518
-    },
-    {
-      "path": "Practicals_PNG/Practical_21.png",
-      "size": 113756
-    },
-    {
-      "path": "Practicals_PNG/Practical_22.png",
-      "size": 140494
-    },
-    {
-      "path": "Practicals_PNG/Practical_23.png",
-      "size": 105726
+      "path": "Wireshark_P8_P9_P10/P8_P9_general_capture.pcap",
+      "size": 2497
     }
   ]
 };

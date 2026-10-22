@@ -3,7 +3,7 @@ import { Box, Link, Stack, Typography } from '@mui/material'
 import { vaultFiles } from './vaultFiles'
 
 const groups = [
-  { key: 'rmwd', title: 'RMWD Practicals' },
+  { key: 'cn', title: 'CN Practicals (BETCE15315)' },
 ]
 
 const formatSize = (bytes) => bytes > 1024 * 1024 ? `${(bytes / 1024 / 1024).toFixed(1)} MB` : `${Math.max(1, Math.round(bytes / 1024))} KB`
